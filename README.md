@@ -1,5 +1,5 @@
-It will be ready soon! please wait
-<h1>📋 EAS App</h1>
+It will be ready soon! please wait.
+<h1>📋 chatGPT AI simulator App</h1>
 
 
 
