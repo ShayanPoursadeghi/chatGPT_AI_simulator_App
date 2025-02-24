@@ -1,7 +1,9 @@
-import 'dart:ui_web';
+// import 'dart:ui_web';
 
 import 'package:chatgpt_simulator_app/constants/constant.dart';
 import 'package:chatgpt_simulator_app/services/assets_manager.dart';
+import 'package:chatgpt_simulator_app/widgets/chat_widget.dart';
+import 'package:chatgpt_simulator_app/widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
@@ -40,11 +42,35 @@ class _ChatScreenState extends State<ChatScreen> {
         title: const Text("ChatGPT"),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.more_vert_rounded,
-                color: Colors.white,
-              ),),
+            onPressed: () async {
+              await showModalBottomSheet(
+                  shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),),
+                  backgroundColor: scaffoldBackgroundColor,
+                  context: context,
+                  builder: (context) {
+                    return const Padding(
+                      padding: EdgeInsets.all(18.0),
+                      child: Row(
+                        children: [
+                          Flexible(
+                            child: TextWidget(
+                              label: "Chosen Model:",
+                              fontSize: 16,
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  });
+            },
+            icon: const Icon(
+              Icons.more_vert_rounded,
+              color: Colors.white,
+            ),
+          ),
         ],
       ),
       body: SafeArea(
@@ -54,7 +80,10 @@ class _ChatScreenState extends State<ChatScreen> {
             child: ListView.builder(
                 itemCount: 6,
                 itemBuilder: (context, index) {
-                  return const Text("Hello");
+                  return ChatWidget(
+                    msg: chatMessages[index]["msg"].toString(),
+                    chatIndex: int.parse(chatMessages[index]["chatIndex"].toString()),
+                  );
                 }),
           ),
           if (_isTyping) ...[
