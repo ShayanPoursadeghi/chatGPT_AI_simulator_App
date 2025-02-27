@@ -1,8 +1,12 @@
 import 'package:chatgpt_simulator_app/constants/constant.dart';
 import 'package:chatgpt_simulator_app/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async{
+WidgetsFlutterBinding.ensureInitialized();
+  // load env
+  await dotenv.load();
   runApp(const MyApp());
 }
 
