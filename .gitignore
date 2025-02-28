@@ -38,6 +38,7 @@ ios/Flutter/Flutter.framework/
 .pubspec.lock
 packages/
 .env
+lib/constants/api_consts.dart
 
 # Symbolication related
 app.*.symbols
