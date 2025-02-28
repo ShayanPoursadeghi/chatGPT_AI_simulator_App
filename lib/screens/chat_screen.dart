@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:chatgpt_simulator_app/constants/constant.dart';
 import 'package:chatgpt_simulator_app/models/chat_model.dart';
+import 'package:chatgpt_simulator_app/providers/chats_provider.dart';
 import 'package:chatgpt_simulator_app/providers/models_provider.dart';
 import 'package:chatgpt_simulator_app/services/api_service.dart';
 import 'package:chatgpt_simulator_app/services/assets_manager.dart';
@@ -41,10 +42,11 @@ class _ChatScreenState extends State<ChatScreen> {
     super.dispose();
   }
 
-  List<ChatModel> chatList = [];
+  //List<ChatModel> chatList = [];
   @override
   Widget build(BuildContext context) {
     final modelsProvider = Provider.of<ModelsProvider>(context);
+    final chatsProvider = Provider.of<ChatsProvider>(context);
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
@@ -67,12 +69,14 @@ class _ChatScreenState extends State<ChatScreen> {
           Flexible(
             child: ListView.builder(
                 controller: _listScrollController,
-                itemCount: chatList.length,
+                itemCount: chatsProvider.getChatList.length, //chatList.length,
                 itemBuilder: (context, index) {
                   return ChatWidget(
-                    msg: chatList[index].msg,
-                    chatIndex: (chatList[index].chatIndex),
-                  );
+                      msg: chatsProvider
+                          .getChatList[index].msg, //chatList[index].msg,
+                      chatIndex: chatsProvider.getChatList[index]
+                          .chatIndex //(chatList[index].chatIndex),
+                      );
                 }),
           ),
           if (_isTyping) ...[
@@ -96,7 +100,9 @@ class _ChatScreenState extends State<ChatScreen> {
                       style: const TextStyle(color: Colors.white),
                       controller: textEditingController,
                       onSubmitted: (value) async {
-                        await sendMessageFCT(modelsProvider: modelsProvider);
+                        await sendMessageFCT(
+                            modelsProvider: modelsProvider,
+                            chatsProvider: chatsProvider);
                       },
                       decoration: const InputDecoration.collapsed(
                           hintText: "How can I help you?",
@@ -105,7 +111,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   ),
                   IconButton(
                       onPressed: () async {
-                        await sendMessageFCT(modelsProvider: modelsProvider);
+                        await sendMessageFCT(
+                            modelsProvider: modelsProvider,
+                            chatsProvider: chatsProvider);
                       },
                       icon: const Icon(
                         Icons.send,
@@ -127,19 +135,25 @@ class _ChatScreenState extends State<ChatScreen> {
         curve: Curves.easeOut);
   }
 
-  Future<void> sendMessageFCT({required ModelsProvider modelsProvider}) async {
+  Future<void> sendMessageFCT(
+      {required ModelsProvider modelsProvider,
+      required ChatsProvider chatsProvider}) async {
     try {
       //log("Req has been sent");
       setState(() {
         _isTyping = true;
-        chatList.add(ChatModel(msg: textEditingController.text, chatIndex: 0));
+        //chatList.add(ChatModel(msg: textEditingController.text, chatIndex: 0));
+        chatsProvider.addUserMessage(msg: textEditingController.text);
         textEditingController.clear();
         focusNode.unfocus();
       });
-      chatList.addAll(await ApiService.sendMessage(
-        message: textEditingController.text,
-        modelId: modelsProvider.getCurrentModel,
-      ));
+      await chatsProvider.sendMessageAndGetAnswers(
+          msg: textEditingController.text,
+          chosenModelId: modelsProvider.getCurrentModel);
+      // chatList.addAll(await ApiService.sendMessage(
+      //   message: textEditingController.text,
+      //   modelId: modelsProvider.getCurrentModel,
+      // ));
       setState(() {});
     } catch (error) {
       log("error $error");
