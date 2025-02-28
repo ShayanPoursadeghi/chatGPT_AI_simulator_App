@@ -23,9 +23,11 @@ class _ChatScreenState extends State<ChatScreen> {
   bool _isTyping = false;
 
   late TextEditingController textEditingController;
+  late ScrollController _listScrollController;
   late FocusNode focusNode;
   @override
   void initState() {
+    _listScrollController = ScrollController();
     textEditingController = TextEditingController();
     focusNode = FocusNode();
     super.initState();
@@ -33,6 +35,7 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void dispose() {
+    _listScrollController.dispose();
     textEditingController.dispose();
     focusNode.dispose();
     super.dispose();
@@ -63,6 +66,7 @@ class _ChatScreenState extends State<ChatScreen> {
         child: Column(children: [
           Flexible(
             child: ListView.builder(
+                controller: _listScrollController,
                 itemCount: chatList.length,
                 itemBuilder: (context, index) {
                   return ChatWidget(
@@ -88,11 +92,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 children: [
                   Expanded(
                     child: TextField(
-                      focusNode:  focusNode,
+                      focusNode: focusNode,
                       style: const TextStyle(color: Colors.white),
                       controller: textEditingController,
-                      onSubmitted: (value) async{
-                       await sendMessageFCT(modelsProvider: modelsProvider);
+                      onSubmitted: (value) async {
+                        await sendMessageFCT(modelsProvider: modelsProvider);
                       },
                       decoration: const InputDecoration.collapsed(
                           hintText: "How can I help you?",
@@ -100,8 +104,8 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                   ),
                   IconButton(
-                      onPressed: () async{
-                       await sendMessageFCT(modelsProvider: modelsProvider);
+                      onPressed: () async {
+                        await sendMessageFCT(modelsProvider: modelsProvider);
                       },
                       icon: const Icon(
                         Icons.send,
@@ -114,6 +118,13 @@ class _ChatScreenState extends State<ChatScreen> {
         ]),
       ),
     );
+  }
+
+  void scrollListToEnd() {
+    _listScrollController.animateTo(
+        _listScrollController.position.maxScrollExtent,
+        duration: const Duration(seconds: 2),
+        curve: Curves.easeOut);
   }
 
   Future<void> sendMessageFCT({required ModelsProvider modelsProvider}) async {
@@ -129,13 +140,12 @@ class _ChatScreenState extends State<ChatScreen> {
         message: textEditingController.text,
         modelId: modelsProvider.getCurrentModel,
       ));
-      setState(() {
-        
-      });
+      setState(() {});
     } catch (error) {
       log("error $error");
     } finally {
       setState(() {
+        scrollListToEnd();
         _isTyping = false;
       });
     }
