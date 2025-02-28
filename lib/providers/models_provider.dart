@@ -9,7 +9,7 @@ class ModelsProvider with ChangeNotifier {
   }
 
   void setCurrentModel(String newModel) {
-    currentModel = newModel;
+    currentModel = newModel; 
     notifyListeners();
   }
 
