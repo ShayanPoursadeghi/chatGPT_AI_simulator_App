@@ -26,3 +26,12 @@ class TextWidget extends StatelessWidget {
     );
   }
 }
+      
+class Utils {
+  static void showSnackBar(BuildContext context, String message, {Color? color}) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: TextWidget(label: message,),
+      backgroundColor: color,
+    ));
+  }
+}

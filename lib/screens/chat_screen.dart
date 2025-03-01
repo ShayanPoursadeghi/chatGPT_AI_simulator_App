@@ -138,6 +138,10 @@ class _ChatScreenState extends State<ChatScreen> {
   Future<void> sendMessageFCT(
       {required ModelsProvider modelsProvider,
       required ChatsProvider chatsProvider}) async {
+        if(textEditingController.text.isEmpty){
+           Utils.showSnackBar(context, "Please type a message", color: Colors.orange[600]);
+          return;
+        }
     try {
       //log("Req has been sent");
       setState(() {
@@ -157,6 +161,7 @@ class _ChatScreenState extends State<ChatScreen> {
       setState(() {});
     } catch (error) {
       log("error $error");
+      Utils.showSnackBar(context, error.toString(),color: Colors.red);
     } finally {
       setState(() {
         scrollListToEnd();
