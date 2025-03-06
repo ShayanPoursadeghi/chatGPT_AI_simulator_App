@@ -43,6 +43,14 @@ dependencies:
 
 dev_dependencies:
   flutter_launcher_icons: "^0.14.3"
+  flutter_native_splash: ^2.3.13
+
+flutter_native_splash:
+  color_dark: "#000000"
+  color: "#00001a"
+  image_dark: "assets/images/gpt_icon.png"
+  image: "assets/images/gpt_icon.png"
+  android_gravity: center
 
 flutter_launcher_icons:
   android: "launcher_icon"
