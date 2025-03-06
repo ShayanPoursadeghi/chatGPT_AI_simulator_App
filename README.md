@@ -9,9 +9,6 @@ It will be ready soon! please wait.
 
   - View organizational structure and personal information.
 
-  - Admin panel for managing employee data (CRUD operations).
-
-  - Online and offline data synchronization using Supabase and Hive.
 
 - **Task Management**:
 
@@ -19,15 +16,11 @@ It will be ready soon! please wait.
 
   - Support for three priority levels (high, normal, low).
 
-  - Undo option for deleted tasks.
-
-  - Persistent storage using Hive.
 
 - **Additional Functionalities**:
 
   - Persian and Gregorian date support.
 
-  - Weather integration.
 
   - Light/dark theme toggle.
 
