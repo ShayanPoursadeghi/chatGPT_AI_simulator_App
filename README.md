@@ -19,12 +19,8 @@ It will be ready soon! please wait.
 
 - **Additional Functionalities**:
 
-  - Persian and Gregorian date support.
-
-
   - Light/dark theme toggle.
 
-  - Multi-language support (Persian and English).
 
 
 <h2>📂 Folder Structure</h2>
@@ -82,7 +78,6 @@ To run the project, ensure you have the following installed:
 - [Hive](https://pub.dev/packages/hive_flutter/install) (for local storage)
 - [Provider](https://pub.dev/packages/provider/install) (for dependency injection)
 - [BLoC](https://pub.dev/packages/flutter_bloc/install) (for state management)      (It contains both Cubit and Bloc instances)
-- [Supabase](https://supabase.com/) (Access to a Supabase account with a configured project)
 
 <h3>Installation</h3>
 
