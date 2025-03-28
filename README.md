@@ -117,7 +117,6 @@ flutter run
 
 - **State Management**: **Bloc**, **Provider**
 
-- **Database**: **Supabase** (online), **Hive** (offline)
 
 - **APIs**: Weather API
 
