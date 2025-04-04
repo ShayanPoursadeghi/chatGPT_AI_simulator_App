@@ -146,7 +146,6 @@ The app follows a layered architecture:
 
 - Search and filter tasks using a search bar.
 
-- Undo task deletions.
 
 <h3>3. Themes and Localization</h3>
 
@@ -162,7 +161,7 @@ The app follows a layered architecture:
 
 <h2>🖼️ Screenshots</h2>
 
-This section will be ready soon.
+This section will be ready soon. Please wait!
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; **Home Screen**
 
