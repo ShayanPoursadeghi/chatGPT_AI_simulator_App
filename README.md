@@ -157,7 +157,6 @@ The app follows a layered architecture:
 
 - Weather updates via API.
 
-- Display Persian and Gregorian dates based on the selected language.
 
 <h2>🖼️ Screenshots</h2>
 
